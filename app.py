@@ -485,6 +485,14 @@ def render_result_page(query: dict[str, list[str]], raw_query: str = "") -> str:
     .reason-card span {{ display: block; color: #ffdca0; font-size: 13px; margin-bottom: 7px; }}
     .reason-card p {{ margin: 0; color: #dcecf2; line-height: 1.45; }}
     .meta {{ color: var(--muted); line-height: 1.5; }}
+    .result-footer {{
+      text-align: center;
+      color: #9fd4df;
+      font-size: 13px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 8px 0 2px;
+    }}
     @media (max-width: 860px) {{
       .top, .grid, .detail-row {{ grid-template-columns: 1fr; display: grid; }}
       .score {{ text-align: left; }}
@@ -532,8 +540,9 @@ def render_result_page(query: dict[str, list[str]], raw_query: str = "") -> str:
     <section class="panel">
       <h2>Recommendation</h2>
       {reason_cards}
-      <p class="meta">Label rule: {html.escape(data["label_rule"])}. DGA override: {str(data["label_rule_override"])}. Operating override: {str(data["operating_limit_override"])}.</p>
     </section>
+
+    <footer class="result-footer">Created by Satya</footer>
   </main>
 </body>
 </html>"""
@@ -797,6 +806,23 @@ def render_index() -> str:
       line-height: 1.5;
     }
 
+    .hero-credit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 16px;
+      border: 1px solid rgba(64, 255, 168, .3);
+      border-radius: 999px;
+      padding: 8px 16px;
+      color: #d9fff2;
+      background: rgba(64, 255, 168, .08);
+      box-shadow: 0 0 24px rgba(47, 230, 255, .12);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
     .status-row {
       display: grid;
       grid-template-columns: repeat(3, minmax(150px, 1fr));
@@ -973,8 +999,26 @@ def render_index() -> str:
     .actions {
       display: flex;
       gap: 12px;
-      justify-content: flex-end;
+      justify-content: center;
       flex-wrap: wrap;
+    }
+
+    .actions .predict-btn {
+      min-width: min(360px, 100%);
+      padding: 18px 34px;
+      font-size: 17px;
+      letter-spacing: .02em;
+    }
+
+    .modal-footer {
+      border-top: 1px solid rgba(47, 230, 255, .16);
+      padding: 15px 22px 18px;
+      text-align: center;
+      color: #9fd4df;
+      font-size: 13px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      background: rgba(6, 14, 22, .72);
     }
 
     .output-card {
@@ -1072,6 +1116,7 @@ def render_index() -> str:
       .modal-card { max-height: 94vh; }
       .actions { justify-content: stretch; }
       .predict-btn { width: 100%; }
+      .actions .predict-btn { min-width: 100%; }
       .modal-actions .home-btn { padding: 11px 13px; }
     }
   </style>
@@ -1091,6 +1136,7 @@ def render_index() -> str:
       <div class="hero-inner">
         <h1>Transformer Health Monitoring System</h1>
         <p class="subtitle">AI-based Health Index Prediction for Transformers</p>
+        <div class="hero-credit">Created by Satya</div>
         <div class="status-row" aria-label="system highlights">
           <div class="status-card"><strong>DGA</strong><span>Seven gas input model</span></div>
           <div class="status-card"><strong>BDV</strong><span>Oil insulation strength</span></div>
@@ -1102,7 +1148,6 @@ def render_index() -> str:
     <div class="cta-wrap">
       <button class="insert-btn" id="openModal" type="button">Insert Data</button>
     </div>
-    <div class="credit">Created by SATYA</div>
   </main>
 
   <section class="modal" id="dataModal" aria-hidden="true">
@@ -1150,6 +1195,7 @@ def render_index() -> str:
           <button class="predict-btn" type="submit">Predict Health Index</button>
         </div>
       </form>
+      <footer class="modal-footer">Created by Satya</footer>
     </div>
   </section>
 
